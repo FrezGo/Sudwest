@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sudwest — Bier aus dem Schwarzwald</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --cream: #EAE1C8;
+    --cream-dim: #E1D6B8;
+    --ink: #1B1712;
+    --forest: #223828;
+    --forest-dim: #1a2c20;
+    --copper: #B5652E;
+    --rust: #7E3626;
+    --gold: #B9942E;
+    --line: rgba(27,23,18,0.18);
+    --line-light: rgba(234,225,200,0.28);
+    --serif: "Fraunces", serif;
+    --sans: "Work Sans", sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ---------- Header ---------- */
+
+  .masthead{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 28px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .wordmark{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: 0.01em;
+    text-decoration:none;
+  }
+
+  .wordmark span{ color: var(--copper); }
+
+  nav ul{
+    display:flex;
+    gap: 34px;
+    list-style:none;
+    margin:0; padding:0;
+    font-size: 0.95rem;
+  }
+
+  nav a{ text-decoration:none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color .2s ease; }
+  nav a:hover{ border-color: var(--ink); }
+
+  .nav-toggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    position:relative;
+    padding: 90px 40px 120px;
+    overflow:hidden;
+    background: var(--forest);
+    color: var(--cream);
+  }
+
+  .hero .wrap{
+    display:grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: 60px;
+    align-items:end;
+    position:relative;
+    z-index:2;
+  }
+
+  .hero-eyebrow{
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 450;
+    font-size: 1.05rem;
+    color: var(--gold);
+    margin: 0 0 18px;
+    opacity:0;
+    animation: rise .7s ease forwards;
+    animation-delay: .05s;
+  }
+
+  .hero h1{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(3.2rem, 7vw, 5.6rem);
+    line-height: 0.98;
+    margin: 0 0 26px;
+    letter-spacing: -0.01em;
+    opacity:0;
+    animation: rise .8s ease forwards;
+    animation-delay: .15s;
+  }
+
+  .hero p.lede{
+    font-size: 1.15rem;
+    max-width: 46ch;
+    color: var(--cream-dim);
+    margin: 0;
+    opacity:0;
+    animation: rise .8s ease forwards;
+    animation-delay: .3s;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(16px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-eyebrow, .hero h1, .hero p.lede{ animation: none; opacity:1; }
+  }
+
+  .hero-stamp{
+    justify-self: end;
+    opacity:0;
+    animation: rise .8s ease forwards;
+    animation-delay: .45s;
+  }
+  @media (prefers-reduced-motion: reduce){ .hero-stamp{ animation:none; opacity:1; } }
+
+  .hero-stamp svg{ width: 168px; height: 168px; }
+
+  .hero-hills{
+    position:absolute;
+    left:0; right:0; bottom:-2px;
+    width:100%;
+    height:auto;
+    z-index:1;
+    opacity: 0.9;
+  }
+
+  /* ---------- Herkunft (origin story) ---------- */
+
+  .herkunft{
+    padding: 110px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .herkunft .wrap{
+    display:grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 80px;
+    align-items:center;
+  }
+
+  .herkunft h2{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin: 0 0 24px;
+  }
+
+  .herkunft p{ margin: 0 0 18px; max-width: 52ch; color: #2c2620; }
+  .herkunft p:last-child{ margin-bottom:0; }
+
+  .contour{ width:100%; height:auto; }
+
+  /* ---------- Bier lineup ---------- */
+
+  .biere{
+    padding: 110px 40px;
+    background: var(--forest);
+    color: var(--cream);
+  }
+
+  .biere-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom: 56px;
+    gap: 30px;
+    flex-wrap:wrap;
+  }
+
+  .biere-head h2{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin:0;
+  }
+
+  .biere-head p{
+    margin:0;
+    max-width: 38ch;
+    color: var(--cream-dim);
+  }
+
+  .bier-row{
+    display:grid;
+    grid-template-columns: 1.1fr 2.4fr auto;
+    gap: 36px;
+    align-items:start;
+    padding: 38px 0;
+    border-top: 1px solid var(--line-light);
+  }
+
+  .biere .bier-row:last-of-type{ border-bottom: 1px solid var(--line-light); }
+
+  .bier-name{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.9rem;
+    margin: 0 0 8px;
+  }
+
+  .bier-kind{
+    font-style: italic;
+    font-family: var(--serif);
+    color: var(--gold);
+    margin:0;
+    font-size: 1.05rem;
+  }
+
+  .bier-desc{ color: var(--cream-dim); margin: 0; max-width: 54ch; }
+
+  .bier-specs{
+    display:grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 6px 28px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    align-content:start;
+  }
+
+  .bier-specs dt{ color: var(--gold); }
+  .bier-specs dd{ margin:0; color: var(--cream-dim); }
+
+  /* ---------- Brauprozess ---------- */
+
+  .prozess{
+    padding: 110px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .prozess h2{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin: 0 0 60px;
+    max-width: 20ch;
+  }
+
+  .schritte{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .schritt{
+    padding: 0 26px 0 0;
+    border-left: 1px solid var(--line);
+    padding-left: 26px;
+  }
+
+  .schritt:first-child{ border-left:none; padding-left:0; }
+
+  .schritt-nr{
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--copper);
+    font-size: 1.1rem;
+    display:block;
+    margin-bottom: 14px;
+  }
+
+  .schritt h3{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin: 0 0 10px;
+  }
+
+  .schritt p{ margin:0; font-size: 0.96rem; color: #3a332a; }
+
+  /* ---------- Finden / Footer ---------- */
+
+  .finden{
+    padding: 100px 40px 60px;
+  }
+
+  .finden .wrap{
+    display:grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+  }
+
+  .finden h2{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 2.3rem;
+    margin: 0 0 22px;
+    max-width: 16ch;
+  }
+
+  .finden p{ max-width: 48ch; color: #2c2620; margin: 0 0 28px; }
+
+  .ort-liste{
+    list-style:none;
+    margin:0; padding:0;
+    border-top: 1px solid var(--line);
+  }
+
+  .ort-liste li{
+    display:flex;
+    justify-content:space-between;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.96rem;
+  }
+
+  .ort-name{ font-weight: 500; }
+  .ort-ort{ color: #5b5245; }
+
+  .kontakt-block{
+    background: var(--rust);
+    color: var(--cream);
+    padding: 42px;
+    align-self:start;
+  }
+
+  .kontakt-block h3{
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 450;
+    font-size: 1.4rem;
+    margin: 0 0 16px;
+  }
+
+  .kontakt-block p{ margin: 0 0 22px; color: rgba(234,225,200,0.85); max-width: 34ch; }
+
+  .btn{
+    display:inline-block;
+    background: var(--cream);
+    color: var(--ink);
+    text-decoration:none;
+    padding: 13px 26px;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+
+  footer{
+    padding: 30px 40px 40px;
+    border-top: 1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size: 0.85rem;
+    color: #5b5245;
+    flex-wrap:wrap;
+    gap: 12px;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 860px){
+    .wrap{ padding: 0 24px; }
+    .masthead{ padding: 22px 24px; }
+    nav ul{ gap: 20px; font-size: 0.88rem; }
+    .hero{ padding: 60px 24px 80px; }
+    .hero .wrap{ grid-template-columns: 1fr; gap: 36px; }
+    .hero-stamp{ justify-self:start; }
+    .herkunft{ padding: 70px 24px; }
+    .herkunft .wrap{ grid-template-columns: 1fr; gap: 40px; }
+    .biere{ padding: 70px 24px; }
+    .bier-row{ grid-template-columns: 1fr; gap: 14px; }
+    .prozess{ padding: 70px 24px; }
+    .schritte{ grid-template-columns: 1fr 1fr; row-gap: 34px; }
+    .schritt{ border-left:none; padding-left:0; }
+    .finden{ padding: 70px 24px 40px; }
+    .finden .wrap{ grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  @media (max-width: 520px){
+    nav ul{ display:none; }
+    .schritte{ grid-template-columns: 1fr; }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--copper);
+    outline-offset: 3px;
+  }
+
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="wordmark" href="#top">Sud<span>west</span></a>
+  <nav aria-label="Hauptnavigation">
+    <ul>
+      <li><a href="#biere">Biere</a></li>
+      <li><a href="#herkunft">Herkunft</a></li>
+      <li><a href="#finden">Finden</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="hero-eyebrow">Gebraut am Rand des Schwarzwalds</p>
+      <h1>Bier, das nach<br>seiner Herkunft schmeckt.</h1>
+      <p class="lede">Sudwest braut kleine Mengen mit Wasser aus der Region, offener Gärung und Geduld statt Eile. Kein Zusatz, keine Abkürzung.</p>
+    </div>
+    <div class="hero-stamp" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="94" fill="none" stroke="#EAE1C8" stroke-width="1.4"/>
+        <circle cx="100" cy="100" r="80" fill="none" stroke="#EAE1C8" stroke-width="1"/>
+        <path id="stampCurveTop" d="M 30 100 A 70 70 0 0 1 170 100" fill="none"/>
+        <path id="stampCurveBottom" d="M 170 100 A 70 70 0 0 1 30 100" fill="none"/>
+        <text font-family="Work Sans" font-size="11.5" letter-spacing="3" fill="#EAE1C8">
+          <textPath href="#stampCurveTop" startOffset="50%" text-anchor="middle">SEIT 2019 · OFFENBURG</textPath>
+        </text>
+        <text font-family="Work Sans" font-size="11.5" letter-spacing="3" fill="#EAE1C8">
+          <textPath href="#stampCurveBottom" startOffset="50%" text-anchor="middle">UNGEFILTERT · UNGEHETZT</textPath>
+        </text>
+        <text x="100" y="94" font-family="Fraunces" font-style="italic" font-size="17" fill="#B9942E" text-anchor="middle">Kleine</text>
+        <text x="100" y="118" font-family="Fraunces" font-style="italic" font-size="17" fill="#B9942E" text-anchor="middle">Braucharge</text>
+      </svg>
+    </div>
+  </div>
+  <svg class="hero-hills" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,140 L0,90 C120,40 200,110 320,70 C430,34 500,90 620,60 C740,32 820,95 940,55 C1040,22 1120,80 1200,60 L1200,140 Z" fill="#1a2c20"/>
+    <path d="M0,140 L0,110 C160,80 260,125 380,100 C500,78 580,120 700,95 C820,72 900,120 1020,100 C1100,88 1160,110 1200,100 L1200,140 Z" fill="#182720"/>
+  </svg>
+</section>
+
+<section class="herkunft" id="herkunft">
+  <div class="wrap">
+    <div>
+      <h2>Zwischen Rebhang und Tannenwald.</h2>
+      <p>Offenburg liegt genau dort, wo die letzten Ausläufer des Schwarzwalds in die Rheinebene übergehen — Weinberge auf der einen Seite, dichter Nadelwald auf der anderen. Dieses Wasser, das durch Granit und Buntsandstein sickert, ist die eigentliche Zutat, um die sich alles andere anordnet.</p>
+      <p>Wir brauen in einem ehemaligen Sandsteinkeller mit konstant kühlen zwölf Grad — ganz ohne Kühlaggregat. Die Rezepte entstehen aus dem, was die Region hergibt: Hopfen aus Tettnang, Malz aus badischen Mühlen, Hefestämme, die wir seit der ersten Charge weiterführen.</p>
+    </div>
+    <svg class="contour" viewBox="0 0 500 340" role="img" aria-label="Schematische Höhenlinien des Schwarzwalds bei Offenburg">
+      <g fill="none" stroke="#223828" stroke-width="1.1">
+        <path d="M10,320 C80,260 120,300 180,240 C240,180 280,230 340,160 C390,105 420,150 490,80" opacity="0.9"/>
+        <path d="M10,280 C90,230 130,265 190,210 C250,155 290,195 350,135 C400,88 430,120 490,60" opacity="0.65"/>
+        <path d="M10,235 C100,195 140,225 200,175 C260,125 300,160 360,105 C405,68 435,95 490,42" opacity="0.42"/>
+        <path d="M10,190 C110,158 150,182 210,140 C270,98 305,128 365,80 C408,50 435,72 490,26" opacity="0.24"/>
+      </g>
+      <circle cx="130" cy="260" r="3" fill="#B5652E"/>
+      <text x="142" y="264" font-family="Work Sans" font-size="12" fill="#3a332a">Braukeller, 210 m ü.M.</text>
+    </svg>
+  </div>
+</section>
+
+<section class="biere" id="biere">
+  <div class="wrap">
+    <div class="biere-head">
+      <h2>Drei feste Größen.</h2>
+      <p>Keine Saisonabverkäufe, keine Sonderauflagen. Diese drei begleiten uns seit Jahren — nur die Charge ändert sich.</p>
+    </div>
+
+    <div class="bier-row">
+      <div>
+        <p class="bier-name">Kellergold</p>
+        <p class="bier-kind">Naturtrübes Kellerbier</p>
+      </div>
+      <p class="bier-desc">Unfiltriert direkt aus dem Lagertank gezapft, mild gehopft und mit einer feinen Hefetrübung, die dem Bier seine runde, fast brotige Note gibt. Unser Bier für den Feierabend am Kellerfenster.</p>
+      <dl class="bier-specs">
+        <dt>Stammwürze</dt><dd>11,8° P</dd>
+        <dt>Alkohol</dt><dd>4,8 % vol</dd>
+        <dt>Bittere</dt><dd>22 IBU</dd>
+        <dt>Hopfen</dt><dd>Tettnanger</dd>
+      </dl>
+    </div>
+
+    <div class="bier-row">
+      <div>
+        <p class="bier-name">Bergpfad</p>
+        <p class="bier-kind">Pale Ale</p>
+      </div>
+      <p class="bier-desc">Kaltgehopft mit Mandarina Bavaria und Cascade, dadurch Noten von Grapefruit und Harz, getragen von einem leicht karamelligen Malzkörper. Kräftiger als ein Helles, ohne in die Schärfe eines IPA zu kippen.</p>
+      <dl class="bier-specs">
+        <dt>Stammwürze</dt><dd>13,4° P</dd>
+        <dt>Alkohol</dt><dd>5,6 % vol</dd>
+        <dt>Bittere</dt><dd>38 IBU</dd>
+        <dt>Hopfen</dt><dd>Mandarina Bavaria, Cascade</dd>
+      </dl>
+    </div>
+
+    <div class="bier-row">
+      <div>
+        <p class="bier-name">Nachtschwarz</p>
+        <p class="bier-kind">Schwarzbier</p>
+      </div>
+      <p class="bier-desc">Dunkel geröstetes Malz sorgt für Noten von Kaffee und dunkler Schokolade, bleibt dabei aber untergärig leicht und trinkbar. Benannt nach den Nächten im Tannenwald oberhalb des Braukellers.</p>
+      <dl class="bier-specs">
+        <dt>Stammwürze</dt><dd>12,6° P</dd>
+        <dt>Alkohol</dt><dd>5,2 % vol</dd>
+        <dt>Bittere</dt><dd>24 IBU</dd>
+        <dt>Hopfen</dt><dd>Hallertauer Tradition</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="prozess">
+  <div class="wrap">
+    <h2>Vom Keller bis zur Flasche.</h2>
+    <div class="schritte">
+      <div class="schritt">
+        <span class="schritt-nr">Eins</span>
+        <h3>Maischen</h3>
+        <p>Malz und Sandsteinwasser ruhen mehrere Stunden bei steigenden Temperaturen, bis die Stärke zu Zucker wird.</p>
+      </div>
+      <div class="schritt">
+        <span class="schritt-nr">Zwei</span>
+        <h3>Kochen</h3>
+        <p>Der Hopfen kommt in zwei Gaben dazu — eine für die Bittere, eine für das Aroma kurz vor Kochende.</p>
+      </div>
+      <div class="schritt">
+        <span class="schritt-nr">Drei</span>
+        <h3>Gären</h3>
+        <p>Offene Gärbottiche im Keller, zwei bis vier Wochen, je nach Sorte und Außentemperatur.</p>
+      </div>
+      <div class="schritt">
+        <span class="schritt-nr">Vier</span>
+        <h3>Reifen</h3>
+        <p>Mindestens sechs Wochen Lagerung bei zwölf Grad, bevor eine Charge abgefüllt wird.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="finden" id="finden">
+  <div class="wrap">
+    <div>
+      <h2>Wo es Sudwest gibt.</h2>
+      <p>Wir liefern wöchentlich an eine Handvoll Gasthäuser und Getränkemärkte in der Region. Der Braukeller selbst öffnet einmal im Monat für Führung und Verkostung.</p>
+      <ul class="ort-liste">
+        <li><span class="ort-name">Gasthaus Rebstock</span><span class="ort-ort">Offenburg-Zunsweier</span></li>
+        <li><span class="ort-name">Getränke Huber</span><span class="ort-ort">Offenburg, Hauptstraße</span></li>
+        <li><span class="ort-name">Waldschänke Bühlertal</span><span class="ort-ort">Bühlertal</span></li>
+        <li><span class="ort-name">Wochenmarkt Offenburg</span><span class="ort-ort">Samstags, Marktplatz</span></li>
+      </ul>
+    </div>
+    <div class="kontakt-block">
+      <h3>Braukeller besichtigen</h3>
+      <p>Jeden ersten Samstag im Monat, 15 Uhr. Plätze sind begrenzt, eine Anmeldung reicht per Mail.</p>
+      <a class="btn" href="mailto:keller@sudwest-bier.de">Platz reservieren</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Sudwest Brauerei, Offenburg</span>
+  <span>keller@sudwest-bier.de</span>
+</footer>
+
+</body>
+</html>
